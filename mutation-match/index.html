@@ -11,21 +11,17 @@
 
   <style>
     :root{
-      --bg1:#CDEBFF;
-      --bg2:#FFE1F0;
-      --bg3:#D7F7EC;
-
-      --ink:#132246;
-      --muted:#4D5C86;
-
-      --card:rgba(255,255,255,.82);
+      --bg1:#CDEBFF; --bg2:#FFE1F0; --bg3:#D7F7EC;
+      --ink:#132246; --muted:#51608A;
+      --card:rgba(255,255,255,.85);
       --stroke:rgba(19,34,70,.14);
       --shadow: 0 22px 60px rgba(0,0,0,.14);
-      --radius:22px;
+      --radius:24px;
 
       --good:#2DB67C;
-      --warn:#F6A63B;
       --bad:#FF5A7A;
+      --soft:#F4F7FF;
+      --chip:rgba(255,255,255,.92);
     }
 
     *{box-sizing:border-box}
@@ -41,9 +37,9 @@
       overflow:hidden;
     }
 
-    /* floating soft shapes */
+    /* soft blobs */
     .blob{
-      position:fixed;
+      position:fixed; inset:auto;
       filter: blur(30px);
       opacity:.35;
       border-radius: 999px;
@@ -62,7 +58,7 @@
       padding:18px;
     }
     .card{
-      width:min(980px, 96vw);
+      width:min(1020px, 96vw);
       background:var(--card);
       border:1.5px solid var(--stroke);
       border-radius:var(--radius);
@@ -94,15 +90,15 @@
 
     .pills{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
     .pill{
-      background:rgba(255,255,255,.72);
+      background:rgba(255,255,255,.74);
       border:1.5px solid var(--stroke);
       border-radius:999px;
       padding:10px 12px;
       box-shadow:0 14px 38px rgba(0,0,0,.10);
       font-weight:900;
       display:flex; gap:8px; align-items:center;
-      min-width: 150px;
       justify-content:center;
+      min-width: 145px;
     }
 
     main{
@@ -114,17 +110,17 @@
     @media (max-width: 900px){ main{grid-template-columns:1fr} }
 
     .panel{
-      background:rgba(255,255,255,.78);
+      background:rgba(255,255,255,.80);
       border:1.5px solid var(--stroke);
-      border-radius:20px;
+      border-radius:22px;
       box-shadow:0 14px 36px rgba(0,0,0,.10);
       padding:14px;
       position:relative;
       overflow:hidden;
     }
 
-    .birdStage{
-      height: 420px;
+    .stage{
+      height: 430px;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -133,7 +129,7 @@
         radial-gradient(220px 120px at 45% 25%, rgba(255,255,255,.85), transparent 60%),
         radial-gradient(420px 220px at 50% 100%, rgba(19,34,70,.06), transparent 70%);
     }
-    @media (max-width: 900px){ .birdStage{height:380px} }
+    @media (max-width: 900px){ .stage{height:380px} }
 
     .hint{
       margin-top:10px;
@@ -145,6 +141,37 @@
       font-weight:900;
       line-height:1.4;
     }
+
+    .rightTop{
+      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+    .titleMini{
+      font-family:Fredoka; font-size:20px; font-weight:700;
+      display:flex; align-items:center; gap:10px;
+    }
+    .chip{
+      background:var(--chip);
+      border:1.5px solid var(--stroke);
+      border-radius:999px;
+      padding:8px 10px;
+      font-weight:900;
+      box-shadow:0 12px 28px rgba(0,0,0,.10);
+      color:var(--muted);
+      user-select:none;
+    }
+
+    .bigBtn{
+      cursor:pointer;
+      border-radius:18px;
+      padding:12px 14px;
+      background: rgba(255,255,255,.92);
+      border:1.5px solid var(--stroke);
+      box-shadow: 0 16px 44px rgba(0,0,0,.14);
+      font-weight:900;
+      min-width:140px;
+      user-select:none;
+    }
+    .bigBtn:active{transform:translateY(2px)}
 
     .choices{
       display:grid;
@@ -158,7 +185,7 @@
       cursor:pointer;
       border-radius:18px;
       padding:12px 12px;
-      background: rgba(255,255,255,.92);
+      background: rgba(255,255,255,.95);
       border:1.5px solid var(--stroke);
       box-shadow:0 14px 34px rgba(0,0,0,.10);
       font-weight:900;
@@ -167,34 +194,18 @@
       align-items:center;
       justify-content:space-between;
       gap:10px;
-      transition: transform .05s ease;
+      transition: transform .05s ease, outline .1s ease;
     }
     .btn:active{transform:translateY(2px)}
     .btn small{color:var(--muted); font-weight:900}
-
-    .btn.good{outline: 3px solid rgba(45,182,124,.25)}
-    .btn.bad{outline: 3px solid rgba(255,90,122,.23)}
-
-    .rightTop{
-      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
-    }
-    .bigBtn{
-      cursor:pointer;
-      border-radius:18px;
-      padding:12px 14px;
-      background: rgba(255,255,255,.92);
-      border:1.5px solid var(--stroke);
-      box-shadow: 0 16px 44px rgba(0,0,0,.14);
-      font-weight:900;
-      min-width:150px;
-    }
-    .bigBtn:active{transform:translateY(2px)}
+    .btn.good{outline: 4px solid rgba(45,182,124,.22)}
+    .btn.bad{outline: 4px solid rgba(255,90,122,.22)}
 
     .toast{
       margin-top:12px;
       padding:12px;
       border-radius:18px;
-      background:rgba(255,255,255,.76);
+      background:rgba(255,255,255,.78);
       border:1.5px solid var(--stroke);
       box-shadow:0 14px 34px rgba(0,0,0,.09);
       font-weight:900;
@@ -227,24 +238,108 @@
       z-index:30;
     }
     .modal{
-      width:min(820px, 96vw);
-      background: rgba(255,255,255,.90);
+      width:min(860px, 96vw);
+      background: rgba(255,255,255,.92);
       border:1.5px solid var(--stroke);
       border-radius:22px;
       box-shadow: var(--shadow);
       padding:18px;
-      text-align:center;
     }
     .modal h2{
       margin:6px 0 8px;
       font-family: Fredoka, system-ui;
       font-size:34px;
       letter-spacing:.2px;
+      text-align:center;
     }
-    .modal p{margin:0 0 14px; color:var(--muted); font-weight:900; line-height:1.45}
-    .modal .rowBtns{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:12px}
-    .credits{margin-top:10px; color:var(--muted); font-weight:900; display:none}
+    .modal p{margin:0 0 14px; color:var(--muted); font-weight:900; line-height:1.45; text-align:center}
+    .rowBtns{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:12px}
+    .credits{margin-top:10px; color:var(--muted); font-weight:900; display:none; text-align:center}
     .credits.show{display:block}
+
+    .sectionTitle{
+      font-family:Fredoka; font-size:18px; font-weight:700;
+      margin:12px 0 8px;
+      color:var(--ink);
+    }
+
+    .toggleRow{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:10px 0 0;
+    }
+    .toggle{
+      display:flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.85);
+      border:1.5px solid var(--stroke);
+      box-shadow:0 12px 28px rgba(0,0,0,.10);
+      font-weight:900;
+      user-select:none;
+      cursor:pointer;
+    }
+    .switch{
+      width:48px; height:28px; border-radius:999px;
+      background: rgba(19,34,70,.12);
+      position:relative;
+      border:1.5px solid rgba(19,34,70,.14);
+      transition: background .15s ease;
+      flex: 0 0 auto;
+    }
+    .knob{
+      position:absolute; top:3px; left:3px;
+      width:22px; height:22px; border-radius:999px;
+      background:#fff;
+      box-shadow: 0 10px 20px rgba(0,0,0,.18);
+      transition: transform .15s ease;
+    }
+    .toggle.on .switch{background: rgba(45,182,124,.25)}
+    .toggle.on .knob{transform: translateX(20px)}
+
+    /* Collection grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+    }
+    @media (max-width: 760px){ .grid{grid-template-columns: repeat(2, 1fr);} }
+    @media (max-width: 520px){ .grid{grid-template-columns: 1fr;} }
+
+    .cardMini{
+      background: rgba(255,255,255,.88);
+      border:1.5px solid var(--stroke);
+      border-radius:18px;
+      box-shadow:0 14px 34px rgba(0,0,0,.10);
+      padding:12px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      min-height:86px;
+    }
+    .thumb{
+      width:62px; height:62px;
+      border-radius:18px;
+      background: rgba(244,247,255,.9);
+      border:1.5px solid rgba(19,34,70,.14);
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+    .meta{
+      display:flex; flex-direction:column; gap:4px;
+    }
+    .name{
+      font-weight:900;
+    }
+    .desc{
+      color:var(--muted);
+      font-weight:900;
+      font-size:12px;
+      line-height:1.2;
+    }
+    .locked{
+      opacity:.55;
+      filter: grayscale(.7);
+    }
 
     canvas{width:100%;height:100%;display:block}
   </style>
@@ -258,7 +353,7 @@
     <header>
       <div>
         <h1>Mutation Match</h1>
-        <div class="sub">Guess the cockatiel type from the cute drawing ✨</div>
+        <div class="sub">Super cute cockatiel quiz. Guess the mutation ✨</div>
       </div>
       <div class="pills">
         <div class="pill">⭐ Score: <span id="score">0</span></div>
@@ -268,21 +363,25 @@
     </header>
 
     <main>
-      <!-- left: bird -->
+      <!-- left: bird stage + confetti layer -->
       <section class="panel">
-        <div class="birdStage">
+        <div class="stage">
           <canvas id="c" width="900" height="700"></canvas>
         </div>
         <div class="hint" id="hint">
-          Pick the right mutation. Build streak for bigger score!
+          Start from Menu. Correct answers unlock cute cards in Collection!
         </div>
       </section>
 
       <!-- right: controls -->
       <section class="panel">
         <div class="rightTop">
-          <div style="font-family:Fredoka;font-size:20px;font-weight:700;">Choose</div>
+          <div class="titleMini">
+            Choose
+            <span class="chip" id="modeChip">Mode: Normal</span>
+          </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="bigBtn" id="collectionBtn">Collection</button>
             <button class="bigBtn" id="menuBtn">Menu</button>
             <button class="bigBtn" id="nextBtn">Next</button>
           </div>
@@ -292,15 +391,16 @@
 
         <div class="toast">
           <span class="dot" id="dot"></span>
-          <span id="toast">Click Start in Menu to begin!</span>
+          <span id="toast">Open Menu → Start</span>
         </div>
 
         <div style="margin-top:12px; color:var(--muted); font-weight:900; line-height:1.4;">
-          Tips:
+          Quick tips:
           <ul style="margin:8px 0 0 18px;">
-            <li>Whiteface has <b>no orange cheeks</b></li>
-            <li>Pearl looks <b>spotted / scalloped</b></li>
-            <li>Pied has <b>patchy color blocks</b></li>
+            <li><b>Whiteface</b> has <b>no orange cheeks</b></li>
+            <li><b>Pearl</b> looks <b>spotted / scalloped</b></li>
+            <li><b>Pied</b> has <b>patchy color blocks</b></li>
+            <li><b>Cinnamon</b> looks <b>warm/brownish</b></li>
           </ul>
         </div>
       </section>
@@ -313,14 +413,41 @@
   <div class="modal">
     <h2>Mutation Match</h2>
     <p>
-      You’ll see a cockatiel drawing. Pick the correct mutation name.<br>
-      Get a streak for bonus points. 3 mistakes and it’s over.
+      A cute cockatiel appears. Pick the correct mutation name.<br>
+      <b>Correct</b> = score + confetti + unlock cards ✨<br>
+      3 mistakes and it’s game over.
     </p>
+
+    <div class="toggleRow">
+      <div class="toggle" id="hardToggle" role="button" aria-label="Toggle hard mode">
+        <span>Hard Mode (6 choices)</span>
+        <div class="switch"><div class="knob"></div></div>
+      </div>
+    </div>
+
     <div class="rowBtns">
       <button class="bigBtn" id="startBtn">Start</button>
+      <button class="bigBtn" id="openCollectionBtn">Collection</button>
       <button class="bigBtn" id="creditsBtn">Credits</button>
     </div>
     <div class="credits" id="credits">GameMaker: Enzo</div>
+  </div>
+</div>
+
+<!-- Collection -->
+<div class="backdrop" id="collection" style="display:none;">
+  <div class="modal">
+    <h2>Collection</h2>
+    <p id="colText">Unlock mutation cards by getting answers correct!</p>
+
+    <div class="sectionTitle">Your Cards</div>
+    <div class="grid" id="grid"></div>
+
+    <div class="rowBtns">
+      <button class="bigBtn" id="resetCardsBtn">Reset Cards</button>
+      <button class="bigBtn" id="closeCollectionBtn">Close</button>
+    </div>
+    <div class="credits show">GameMaker: Enzo</div>
   </div>
 </div>
 
@@ -333,12 +460,16 @@
       <button class="bigBtn" id="retryBtn">Retry</button>
       <button class="bigBtn" id="backBtn">Back to Menu</button>
     </div>
-    <div class="credits">GameMaker: Enzo</div>
+    <div class="credits show">GameMaker: Enzo</div>
   </div>
 </div>
 
 <script>
-/* ========= SFX (no mp3) ========= */
+/* =========================
+   Cute style + gameplay
+   ========================= */
+
+/* ---- SFX (no mp3) ---- */
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
 const audio = new AudioCtx();
 async function ensureAudio(){ try{ if(audio.state==="suspended") await audio.resume(); }catch{} }
@@ -355,12 +486,12 @@ function beep(freq=700, dur=0.06, type="sine", vol=0.05){
 }
 const sfx = {
   good(){ beep(880,0.06,"sine",0.05); beep(1120,0.05,"sine",0.04); },
-  ok(){ beep(640,0.06,"triangle",0.04); },
+  ok(){ beep(620,0.06,"triangle",0.04); },
   bad(){ beep(180,0.12,"triangle",0.06); },
   click(){ beep(520,0.03,"sine",0.03); },
 };
 
-/* ========= Helpers ========= */
+/* ---- Helpers ---- */
 function rand(a,b){ return a + Math.random()*(b-a); }
 function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
 function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
@@ -373,47 +504,57 @@ function shuffle(arr){
   return a;
 }
 
-/* ========= Data ========= */
+/* ---- Mutation data (cute palettes) ---- */
 const MUTS = [
   {
     id:"normal", name:"Normal Grey",
-    hint:"Classic grey body + orange cheeks.",
-    draw:{ body:"#D6D8E3", wing:"#9AA3B8", cheek:"#FF8FA3", crest:"#F6D36B", face:"#D6D8E3" },
+    desc:"Classic grey + blush cheeks.",
+    hint:"Grey body + orange cheeks.",
+    draw:{ body:"#D8DAE6", belly:"#F4F6FF", wing:"#A5AFC6", cheek:"#FF8DA8", crest:"#F6D36B", face:"#D8DAE6" },
     traits:{ cheeks:true, pattern:"none", patches:false, faceWhite:false, warm:false }
   },
   {
     id:"lutino", name:"Lutino",
-    hint:"Yellow/cream body, bright look.",
-    draw:{ body:"#FFF2C9", wing:"#FFE7A2", cheek:"#FF96B0", crest:"#FFD66E", face:"#FFF2C9" },
+    desc:"Sunny yellow vibe ✨",
+    hint:"Yellow/cream body.",
+    draw:{ body:"#FFF2C9", belly:"#FFF8E6", wing:"#FFE6A2", cheek:"#FF96B0", crest:"#FFD66E", face:"#FFF2C9" },
     traits:{ cheeks:true, pattern:"none", patches:false, faceWhite:false, warm:false }
   },
   {
     id:"whiteface", name:"Whiteface",
-    hint:"No orange cheeks! Cooler tones.",
-    draw:{ body:"#E9ECF5", wing:"#BFC7DA", cheek:"#C9D6FF", crest:"#F0F3FF", face:"#F0F3FF" },
+    desc:"Cool tones, no cheeks!",
+    hint:"No orange cheeks!",
+    draw:{ body:"#EDF0FA", belly:"#FFFFFF", wing:"#C9D2E8", cheek:"#DDE6FF", crest:"#F0F3FF", face:"#F6F8FF" },
     traits:{ cheeks:false, pattern:"none", patches:false, faceWhite:true, warm:false }
   },
   {
     id:"pearl", name:"Pearl",
+    desc:"Scalloped spots ✨",
     hint:"Spotted/scalloped pattern.",
-    draw:{ body:"#F7E4EA", wing:"#D7A8B7", cheek:"#FF7EA0", crest:"#FCE2A8", face:"#F7E4EA" },
+    draw:{ body:"#F7E4EA", belly:"#FFF4F8", wing:"#D7A8B7", cheek:"#FF7EA0", crest:"#FCE2A8", face:"#F7E4EA" },
     traits:{ cheeks:true, pattern:"pearl", patches:false, faceWhite:false, warm:false }
   },
   {
     id:"pied", name:"Pied",
-    hint:"Patchy color blocks (random).",
-    draw:{ body:"#F2F2F2", wing:"#9BC9C4", cheek:"#FF86A3", crest:"#F8D27D", face:"#F2F2F2" },
+    desc:"Patchy color blocks!",
+    hint:"Patchy blocks of color.",
+    draw:{ body:"#F6F6F6", belly:"#FFFFFF", wing:"#9BC9C4", cheek:"#FF86A3", crest:"#F8D27D", face:"#F6F6F6" },
     traits:{ cheeks:true, pattern:"none", patches:true, faceWhite:false, warm:false }
   },
   {
     id:"cinnamon", name:"Cinnamon",
+    desc:"Warm caramel tone 🍯",
     hint:"Warm brown-ish tint.",
-    draw:{ body:"#EBC7A9", wing:"#C9926E", cheek:"#FF7B9C", crest:"#F7D88A", face:"#EBC7A9" },
+    draw:{ body:"#EBC7A9", belly:"#F6E2D2", wing:"#C9926E", cheek:"#FF7B9C", crest:"#F7D88A", face:"#EBC7A9" },
     traits:{ cheeks:true, pattern:"none", patches:false, faceWhite:false, warm:true }
   },
 ];
 
-/* ========= UI ========= */
+/* ---- Local Storage keys ---- */
+const LS_UNLOCK = "mm_unlocks_v1";
+const LS_HARD = "mm_hard_v1";
+
+/* ---- UI ---- */
 const scoreEl=document.getElementById("score");
 const streakEl=document.getElementById("streak");
 const livesEl=document.getElementById("lives");
@@ -421,32 +562,107 @@ const hintEl=document.getElementById("hint");
 const toastEl=document.getElementById("toast");
 const dot=document.getElementById("dot");
 const choicesEl=document.getElementById("choices");
+const modeChip=document.getElementById("modeChip");
 
 const menu=document.getElementById("menu");
 const over=document.getElementById("over");
 const overText=document.getElementById("overText");
 const credits=document.getElementById("credits");
 
+const collection=document.getElementById("collection");
+const grid=document.getElementById("grid");
+const colText=document.getElementById("colText");
+
+const hardToggle=document.getElementById("hardToggle");
+
+/* Buttons */
 document.getElementById("menuBtn").onclick=()=>openMenu();
 document.getElementById("nextBtn").onclick=()=> nextRound();
 document.getElementById("startBtn").onclick=async()=>{ await ensureAudio(); closeMenu(); startGame(); };
 document.getElementById("creditsBtn").onclick=()=> credits.classList.toggle("show");
+
 document.getElementById("retryBtn").onclick=()=>{ over.style.display="none"; startGame(); };
 document.getElementById("backBtn").onclick=()=>{ over.style.display="none"; openMenu(); };
 
-/* ========= Game state ========= */
+document.getElementById("collectionBtn").onclick=()=>openCollection();
+document.getElementById("openCollectionBtn").onclick=()=>openCollection();
+document.getElementById("closeCollectionBtn").onclick=()=>closeCollection();
+document.getElementById("resetCardsBtn").onclick=()=>{ localStorage.removeItem(LS_UNLOCK); renderCollection(); sfx.ok(); };
+
+/* Toggle hard mode */
+let hardMode = (localStorage.getItem(LS_HARD) === "1");
+function syncHardUI(){
+  hardToggle.classList.toggle("on", hardMode);
+  modeChip.textContent = hardMode ? "Mode: Hard" : "Mode: Normal";
+}
+hardToggle.onclick=()=>{
+  hardMode = !hardMode;
+  localStorage.setItem(LS_HARD, hardMode ? "1" : "0");
+  syncHardUI();
+  sfx.click();
+};
+syncHardUI();
+
+/* ---- Game state ---- */
 let running=false;
 let score=0, streak=0, lives=3;
 let current=null;
 let locked=false;
 
-/* ========= Canvas drawing ========= */
+/* ---- Canvas ---- */
 const canvas=document.getElementById("c");
 const ctx=canvas.getContext("2d");
 
-function clear(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+/* ---- Confetti particles ---- */
+const confetti = [];
+function spawnConfettiBurst(cx, cy){
+  // pastel confetti
+  const colors = ["#FF7DA8","#FFD66E","#7BE2C9","#7BB8FF","#C9B3FF","#FFB86B"];
+  const count = 120;
+  for(let i=0;i<count;i++){
+    confetti.push({
+      x: cx, y: cy,
+      vx: rand(-6.5, 6.5),
+      vy: rand(-10.5, -4.0),
+      g: rand(0.25, 0.40),
+      r: rand(3,6),
+      a: 1,
+      spin: rand(-0.25,0.25),
+      rot: rand(0,Math.PI*2),
+      w: rand(6,12),
+      h: rand(3,7),
+      c: pick(colors),
+    });
+  }
 }
+function stepConfetti(){
+  for(let i=confetti.length-1;i>=0;i--){
+    const p=confetti[i];
+    p.vy += p.g;
+    p.x += p.vx;
+    p.y += p.vy;
+    p.rot += p.spin;
+    p.a *= 0.985;
+    if(p.y > canvas.height+40 || p.a < 0.04) confetti.splice(i,1);
+  }
+}
+function drawConfetti(){
+  if(confetti.length===0) return;
+  ctx.save();
+  ctx.globalCompositeOperation="source-over";
+  for(const p of confetti){
+    ctx.globalAlpha = p.a;
+    ctx.fillStyle = p.c;
+    ctx.translate(p.x,p.y);
+    ctx.rotate(p.rot);
+    ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+    ctx.rotate(-p.rot);
+    ctx.translate(-p.x,-p.y);
+  }
+  ctx.restore();
+}
+
+/* ---- Drawing helpers ---- */
 function roundRect(x,y,w,h,r){
   ctx.beginPath();
   ctx.moveTo(x+r,y);
@@ -456,189 +672,367 @@ function roundRect(x,y,w,h,r){
   ctx.arcTo(x,y,x+w,y,r);
   ctx.closePath();
 }
+function softShadow(on=true){
+  if(!on){ ctx.shadowColor="transparent"; ctx.shadowBlur=0; ctx.shadowOffsetX=0; ctx.shadowOffsetY=0; return; }
+  ctx.shadowColor="rgba(0,0,0,.12)";
+  ctx.shadowBlur=20;
+  ctx.shadowOffsetX=0;
+  ctx.shadowOffsetY=10;
+}
 
+/* ---- Cute background + clouds ---- */
 function drawBackground(){
   const w=canvas.width, h=canvas.height;
-  // soft background card inside stage
+  ctx.clearRect(0,0,w,h);
+
+  // inner glass card
   ctx.save();
+  softShadow(true);
   const g = ctx.createLinearGradient(0,0,0,h);
-  g.addColorStop(0,"rgba(255,255,255,0.75)");
-  g.addColorStop(1,"rgba(255,255,255,0.45)");
+  g.addColorStop(0,"rgba(255,255,255,0.78)");
+  g.addColorStop(1,"rgba(255,255,255,0.46)");
   ctx.fillStyle=g;
-  roundRect(40,40,w-80,h-80,44);
-  ctx.fill();
+  ctx.strokeStyle="rgba(19,34,70,0.14)";
+  ctx.lineWidth=6;
+  roundRect(46,46,w-92,h-92,54);
+  ctx.fill(); ctx.stroke();
   ctx.restore();
 
-  // sparkly dots
+  // sparkles
   ctx.save();
   ctx.globalAlpha=0.35;
   ctx.fillStyle="rgba(19,34,70,0.35)";
-  for(let i=0;i<60;i++){
-    const x=rand(80,w-80), y=rand(80,h-80);
+  for(let i=0;i<55;i++){
+    const x=rand(92,w-92), y=rand(92,h-92);
     ctx.beginPath(); ctx.arc(x,y,rand(1,2.4),0,Math.PI*2); ctx.fill();
   }
   ctx.restore();
-}
 
-function drawCockatiel(mut){
-  const w=canvas.width, h=canvas.height;
-  const x=w*0.5, y=h*0.56;
+  // cute clouds
+  function cloud(cx,cy,s=1,alpha=0.55){
+    ctx.save();
+    ctx.globalAlpha=alpha;
+    ctx.fillStyle="rgba(255,255,255,0.95)";
+    ctx.strokeStyle="rgba(19,34,70,0.10)";
+    ctx.lineWidth=4;
+    ctx.beginPath();
+    ctx.ellipse(cx-70*s, cy, 55*s, 35*s, 0, 0, Math.PI*2);
+    ctx.ellipse(cx-25*s, cy-18*s, 65*s, 45*s, 0, 0, Math.PI*2);
+    ctx.ellipse(cx+30*s, cy, 60*s, 40*s, 0, 0, Math.PI*2);
+    ctx.ellipse(cx+78*s, cy+10*s, 50*s, 30*s, 0, 0, Math.PI*2);
+    ctx.closePath();
+    ctx.fill(); ctx.stroke();
+    ctx.restore();
+  }
+  cloud(w*0.28, h*0.20, 1.00, 0.45);
+  cloud(w*0.70, h*0.22, 1.10, 0.40);
+  cloud(w*0.58, h*0.34, 0.90, 0.32);
 
   // perch
   ctx.save();
-  ctx.globalAlpha=0.22;
+  ctx.globalAlpha=0.30;
   ctx.fillStyle="#132246";
-  roundRect(w*0.22, h*0.78, w*0.56, 18, 999);
+  roundRect(w*0.22, h*0.78, w*0.56, 20, 999);
   ctx.fill();
   ctx.restore();
+}
 
-  // shadow
+/* ---- SUPER CUTE cockatiel drawing (kawaii style) ---- */
+function drawCuteCockatiel(mut){
+  const w=canvas.width, h=canvas.height;
+  const x=w*0.5, y=h*0.55;
+
+  const C=mut.draw;
+  const outline="rgba(19,34,70,0.22)";
+  const outline2="rgba(19,34,70,0.14)";
+
+  // soft drop shadow under bird
   ctx.save();
   ctx.globalAlpha=0.18;
   ctx.fillStyle="#000";
   ctx.beginPath();
-  ctx.ellipse(x, y+210, 150, 40, 0, 0, Math.PI*2);
+  ctx.ellipse(x, y+220, 150, 38, 0, 0, Math.PI*2);
   ctx.fill();
   ctx.restore();
 
-  const C=mut.draw;
+  // helper for ellipse with stroke
+  function fillEllipse(cx,cy,rx,ry,fill,strokeW=6){
+    ctx.save();
+    ctx.fillStyle=fill;
+    ctx.strokeStyle=outline;
+    ctx.lineWidth=strokeW;
+    ctx.beginPath();
+    ctx.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);
+    ctx.fill(); ctx.stroke();
+    ctx.restore();
+  }
 
-  // body blob
+  // body (round + chubby)
+  fillEllipse(x, y+110, 165, 205, C.body, 7);
+
+  // belly
   ctx.save();
-  ctx.translate(x, y);
+  ctx.globalAlpha=0.95;
+  fillEllipse(x, y+145, 120, 150, C.belly, 6);
+  ctx.restore();
 
-  // body
-  ctx.fillStyle=C.body;
-  ctx.strokeStyle="rgba(19,34,70,0.16)";
-  ctx.lineWidth=6;
+  // wings (soft teardrops)
+  ctx.save();
+  ctx.fillStyle=C.wing;
+  ctx.strokeStyle=outline;
+  ctx.lineWidth=7;
+  // left wing
   ctx.beginPath();
-  ctx.ellipse(0, 80, 150, 190, 0, 0, Math.PI*2);
+  ctx.ellipse(x-128, y+120, 82, 130, 0.55, 0, Math.PI*2);
   ctx.fill(); ctx.stroke();
+  // right wing
+  ctx.beginPath();
+  ctx.ellipse(x+128, y+120, 82, 130, -0.55, 0, Math.PI*2);
+  ctx.fill(); ctx.stroke();
+  ctx.restore();
 
-  // patches for Pied
+  // Pied patches
   if(mut.traits.patches){
     ctx.save();
-    ctx.globalAlpha=0.8;
+    ctx.globalAlpha=0.85;
     for(let i=0;i<6;i++){
-      ctx.fillStyle = i%2===0 ? "rgba(155,201,196,0.75)" : "rgba(255,255,255,0.55)";
+      ctx.fillStyle = i%2===0 ? "rgba(155,201,196,0.70)" : "rgba(255,255,255,0.55)";
       ctx.beginPath();
-      ctx.ellipse(rand(-90,90), rand(-20,160), rand(25,55), rand(18,46), rand(-1,1), 0, Math.PI*2);
+      ctx.ellipse(x+rand(-95,95), y+rand(20,220), rand(26,58), rand(18,48), rand(-1,1), 0, Math.PI*2);
       ctx.fill();
     }
     ctx.restore();
   }
 
-  // wings
-  ctx.fillStyle=C.wing;
-  ctx.beginPath(); ctx.ellipse(-105, 95, 70, 120, 0.55, 0, Math.PI*2); ctx.fill(); ctx.stroke();
-  ctx.beginPath(); ctx.ellipse(105, 95, 70, 120, -0.55, 0, Math.PI*2); ctx.fill(); ctx.stroke();
-
-  // pearl pattern
+  // Pearl pattern (cute scallops)
   if(mut.traits.pattern==="pearl"){
     ctx.save();
-    ctx.globalAlpha=0.65;
-    ctx.fillStyle="rgba(255,255,255,0.75)";
-    for(let i=0;i<18;i++){
+    ctx.globalAlpha=0.60;
+    ctx.fillStyle="rgba(255,255,255,0.78)";
+    for(let i=0;i<20;i++){
       ctx.beginPath();
-      ctx.ellipse(rand(-110,110), rand(10,190), rand(10,18), rand(8,14), rand(0,Math.PI), 0, Math.PI*2);
+      ctx.ellipse(x+rand(-120,120), y+rand(45,235), rand(10,18), rand(8,14), rand(0,Math.PI), 0, Math.PI*2);
       ctx.fill();
     }
     ctx.restore();
   }
 
-  // head
-  ctx.fillStyle=C.face;
-  ctx.beginPath();
-  ctx.ellipse(0, -40, 130, 120, 0, 0, Math.PI*2);
-  ctx.fill(); ctx.stroke();
+  // head (big & round like the sample image)
+  fillEllipse(x, y-38, 150, 135, C.face, 7);
 
-  // crest
+  // crest (simple cute)
+  ctx.save();
   ctx.strokeStyle=C.crest;
   ctx.lineWidth=18;
   ctx.lineCap="round";
-  ctx.beginPath(); ctx.moveTo(-18, -160); ctx.quadraticCurveTo(-60, -245, -10, -290); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(0, -170); ctx.quadraticCurveTo(-10, -250, 30, -300); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(18, -160); ctx.quadraticCurveTo(70, -240, 60, -290); ctx.stroke();
+  ctx.globalAlpha=0.95;
+  function crestLine(x1,y1,cx,cy,x2,y2){
+    ctx.beginPath();
+    ctx.moveTo(x1,y1);
+    ctx.quadraticCurveTo(cx,cy,x2,y2);
+    ctx.stroke();
+  }
+  crestLine(x-18, y-152, x-70, y-245, x-10, y-290);
+  crestLine(x,   y-160, x-10, y-255, x+30, y-305);
+  crestLine(x+18, y-152, x+78, y-240, x+62, y-292);
+  ctx.restore();
 
-  // cheeks (whiteface = none)
+  // cheeks (blush)
   if(mut.traits.cheeks){
     ctx.save();
-    ctx.globalAlpha=0.9;
+    ctx.globalAlpha=0.95;
     ctx.fillStyle=C.cheek;
-    ctx.beginPath(); ctx.arc(-72, -20, 34, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(72, -20, 34, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle=outline2;
+    ctx.lineWidth=4;
+    ctx.beginPath(); ctx.arc(x-78, y-10, 36, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.arc(x+78, y-10, 36, 0, Math.PI*2); ctx.fill(); ctx.stroke();
     ctx.restore();
   }
 
-  // eyes
-  ctx.fillStyle="rgba(19,34,70,0.75)";
-  ctx.beginPath(); ctx.arc(-34, -60, 16, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(34, -60, 16, 0, Math.PI*2); ctx.fill();
-  ctx.save();
-  ctx.fillStyle="rgba(255,255,255,0.9)";
-  ctx.beginPath(); ctx.arc(-40, -66, 6, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(28, -66, 6, 0, Math.PI*2); ctx.fill();
-  ctx.restore();
+  // eyes (sparkly, big)
+  function eye(ex,ey){
+    ctx.save();
+    ctx.fillStyle="rgba(19,34,70,0.82)";
+    ctx.beginPath(); ctx.arc(ex,ey,18,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle="rgba(255,255,255,0.95)";
+    ctx.beginPath(); ctx.arc(ex-6,ey-7,7,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(ex+6,ey+6,4,0,Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+  eye(x-44, y-62);
+  eye(x+44, y-62);
 
-  // beak
-  ctx.fillStyle="rgba(246,193,113,0.95)";
-  ctx.strokeStyle="rgba(19,34,70,0.16)";
+  // beak (tiny)
+  ctx.save();
+  ctx.fillStyle="rgba(250,205,130,0.98)";
+  ctx.strokeStyle=outline2;
   ctx.lineWidth=5;
   ctx.beginPath();
-  ctx.moveTo(0, -28);
-  ctx.quadraticCurveTo(28, -10, 0, 18);
-  ctx.quadraticCurveTo(-28, -10, 0, -28);
+  ctx.moveTo(x, y-34);
+  ctx.quadraticCurveTo(x+26, y-16, x, y+18);
+  ctx.quadraticCurveTo(x-26, y-16, x, y-34);
   ctx.closePath();
   ctx.fill(); ctx.stroke();
-
-  // feet
-  ctx.strokeStyle="rgba(19,34,70,0.18)";
-  ctx.lineWidth=16;
-  ctx.beginPath(); ctx.moveTo(-45, 250); ctx.lineTo(-65, 290); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(45, 250); ctx.lineTo(65, 290); ctx.stroke();
-
   ctx.restore();
 
-  // label
+  // tiny mouth line
   ctx.save();
-  ctx.fillStyle="rgba(255,255,255,0.8)";
-  ctx.strokeStyle="rgba(19,34,70,0.16)";
-  ctx.lineWidth=4;
-  roundRect(90, 70, w-180, 70, 24);
+  ctx.strokeStyle="rgba(19,34,70,0.25)";
+  ctx.lineWidth=5;
+  ctx.lineCap="round";
+  ctx.beginPath();
+  ctx.moveTo(x-8,y+4);
+  ctx.quadraticCurveTo(x, y+12, x+8, y+4);
+  ctx.stroke();
+  ctx.restore();
+
+  // feet (tiny)
+  ctx.save();
+  ctx.strokeStyle="rgba(19,34,70,0.22)";
+  ctx.lineWidth=16;
+  ctx.lineCap="round";
+  ctx.beginPath(); ctx.moveTo(x-50, y+258); ctx.lineTo(x-68, y+292); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x+50, y+258); ctx.lineTo(x+68, y+292); ctx.stroke();
+  ctx.restore();
+
+  // title label
+  ctx.save();
+  ctx.fillStyle="rgba(255,255,255,0.83)";
+  ctx.strokeStyle="rgba(19,34,70,0.15)";
+  ctx.lineWidth=5;
+  roundRect(96, 74, w-192, 72, 26);
   ctx.fill(); ctx.stroke();
-  ctx.fillStyle="rgba(19,34,70,0.85)";
+  ctx.fillStyle="rgba(19,34,70,0.86)";
   ctx.font="900 28px Inter, system-ui";
-  ctx.fillText("Who is this cockatiel?", 120, 118);
+  ctx.fillText("Which mutation is this cutie?", 128, 122);
   ctx.restore();
 }
 
-/* ========= Game functions ========= */
+/* ---- Toast ---- */
 function setToast(msg, good=true){
   toastEl.textContent = msg;
   dot.className = "dot" + (good ? "" : " bad");
 }
 
-function openMenu(){ running=false; menu.style.display="flex"; }
-function closeMenu(){ menu.style.display="none"; }
-
-function startGame(){
-  running=true;
-  score=0; streak=0; lives=3;
-  updateHUD();
-  setToast("Pick the correct mutation ✨", true);
-  nextRound();
+/* ---- Unlocks ---- */
+function getUnlocks(){
+  try{
+    const raw = localStorage.getItem(LS_UNLOCK);
+    const ids = raw ? JSON.parse(raw) : [];
+    return Array.isArray(ids) ? ids : [];
+  }catch{
+    return [];
+  }
+}
+function setUnlocks(ids){
+  localStorage.setItem(LS_UNLOCK, JSON.stringify(ids));
+}
+function unlock(id){
+  const ids = new Set(getUnlocks());
+  const before = ids.size;
+  ids.add(id);
+  setUnlocks([...ids]);
+  return ids.size > before; // true if newly unlocked
 }
 
+/* ---- Collection render ---- */
+function renderCollection(){
+  const ids = new Set(getUnlocks());
+  const unlockedCount = ids.size;
+  colText.textContent = `Unlocked: ${unlockedCount} / ${MUTS.length}. (Get correct answers to unlock more!)`;
+  grid.innerHTML = "";
+
+  for(const m of MUTS){
+    const isUnlocked = ids.has(m.id);
+    const div = document.createElement("div");
+    div.className = "cardMini" + (isUnlocked ? "" : " locked");
+
+    const thumb = document.createElement("div");
+    thumb.className = "thumb";
+    const mini = document.createElement("canvas");
+    mini.width = 120; mini.height = 120;
+    mini.style.width = "60px";
+    mini.style.height = "60px";
+    thumb.appendChild(mini);
+
+    const meta = document.createElement("div");
+    meta.className = "meta";
+    const name = document.createElement("div");
+    name.className = "name";
+    name.textContent = isUnlocked ? m.name : "???";
+    const desc = document.createElement("div");
+    desc.className = "desc";
+    desc.textContent = isUnlocked ? m.desc : "Locked — get it correct to unlock";
+    meta.appendChild(name);
+    meta.appendChild(desc);
+
+    div.appendChild(thumb);
+    div.appendChild(meta);
+    grid.appendChild(div);
+
+    // draw tiny bird thumbnail
+    const c2 = mini.getContext("2d");
+    c2.clearRect(0,0,120,120);
+
+    // cute mini bird (simplified)
+    const cx=60, cy=60;
+    const palette = isUnlocked ? m.draw : { body:"#E9ECF5", belly:"#FFFFFF", wing:"#C9D2E8", cheek:"#DDE6FF", crest:"#F0F3FF", face:"#F6F8FF" };
+    const outline="rgba(19,34,70,0.22)";
+    function ellipse(x,y,rx,ry,fill,strokeW=4){
+      c2.fillStyle=fill;
+      c2.strokeStyle=outline;
+      c2.lineWidth=strokeW;
+      c2.beginPath();
+      c2.ellipse(x,y,rx,ry,0,0,Math.PI*2);
+      c2.fill(); c2.stroke();
+    }
+    ellipse(cx, cy+18, 34, 42, palette.body, 4); // body
+    ellipse(cx, cy-8, 34, 30, palette.face, 4); // head
+    if(isUnlocked && m.traits.cheeks){
+      c2.fillStyle=palette.cheek;
+      c2.globalAlpha=0.9;
+      c2.beginPath(); c2.arc(cx-18, cy-2, 8, 0, Math.PI*2); c2.fill();
+      c2.beginPath(); c2.arc(cx+18, cy-2, 8, 0, Math.PI*2); c2.fill();
+      c2.globalAlpha=1;
+    }
+    // eyes
+    c2.fillStyle="rgba(19,34,70,0.80)";
+    c2.beginPath(); c2.arc(cx-10, cy-16, 4.5, 0, Math.PI*2); c2.fill();
+    c2.beginPath(); c2.arc(cx+10, cy-16, 4.5, 0, Math.PI*2); c2.fill();
+    // crest
+    c2.strokeStyle=palette.crest;
+    c2.lineWidth=6;
+    c2.lineCap="round";
+    c2.beginPath(); c2.moveTo(cx-6, cy-34); c2.quadraticCurveTo(cx-18, cy-54, cx-2, cy-60); c2.stroke();
+    c2.beginPath(); c2.moveTo(cx+2, cy-36); c2.quadraticCurveTo(cx+10, cy-55, cx+14, cy-62); c2.stroke();
+  }
+}
+
+/* ---- Modals ---- */
+function openMenu(){ running=false; menu.style.display="flex"; }
+function closeMenu(){ menu.style.display="none"; }
+function openCollection(){
+  renderCollection();
+  collection.style.display="flex";
+  menu.style.display="none";
+}
+function closeCollection(){
+  collection.style.display="none";
+}
+
+/* ---- HUD ---- */
 function updateHUD(){
   scoreEl.textContent=score;
   streakEl.textContent=streak;
   livesEl.textContent=lives;
 }
 
+/* ---- Choices ---- */
 function makeChoices(correct){
-  // take 3 wrong + correct
-  const wrong = shuffle(MUTS.filter(m=>m.id!==correct.id)).slice(0,3);
+  const n = hardMode ? 6 : 4;
+  const wrong = shuffle(MUTS.filter(m=>m.id!==correct.id)).slice(0, n-1);
   const opts = shuffle([correct, ...wrong]);
+
   choicesEl.innerHTML="";
   for(const o of opts){
     const b = document.createElement("div");
@@ -649,6 +1043,7 @@ function makeChoices(correct){
   }
 }
 
+/* ---- Choose answer ---- */
 function choose(opt, btn){
   if(!running || locked) return;
   locked=true;
@@ -658,16 +1053,24 @@ function choose(opt, btn){
   const correct = (opt.id === current.id);
   if(correct){
     streak++;
-    const bonus = 10 + Math.min(20, streak*2);
-    score += bonus;
-    setToast(`Correct! +${bonus} (streak x${streak}) ✨`, true);
+    const base = 12;
+    const bonus = Math.min(28, streak*3);
+    const add = base + bonus;
+    score += add;
+
+    // unlock card
+    const newly = unlock(current.id);
+
+    // confetti burst from bird
+    spawnConfettiBurst(canvas.width*0.5, canvas.height*0.46);
+
+    setToast(newly ? `Correct! +${add} ✨ New card unlocked!` : `Correct! +${add} ✨`, true);
     sfx.good();
     btn.classList.add("good");
-    hintEl.textContent = "Nice! Next one…";
+    hintEl.textContent = "Awwww so cute. Next one!";
   }else{
     lives--;
     streak = 0;
-    score += 0;
     setToast(`Nope 😭 It was: ${current.name}`, false);
     sfx.bad();
     btn.classList.add("bad");
@@ -679,28 +1082,48 @@ function choose(opt, btn){
     locked=false;
     if(lives<=0){
       running=false;
-      overText.textContent = `Final score: ${score}. Wanna try again?`;
+      overText.textContent = `Final score: ${score}. Cards unlocked: ${getUnlocks().length}/${MUTS.length}.`;
       over.style.display="flex";
       return;
     }
     nextRound();
-  }, 850);
+  }, 900);
 }
 
+/* ---- Game loop (for confetti animation) ---- */
+function loop(){
+  // redraw full scene each frame so confetti sits on top
+  drawBackground();
+  if(current) drawCuteCockatiel(current);
+  stepConfetti();
+  drawConfetti();
+  requestAnimationFrame(loop);
+}
+
+/* ---- Start / rounds ---- */
+function startGame(){
+  running=true;
+  score=0; streak=0; lives=3;
+  updateHUD();
+  setToast("Pick the correct mutation ✨", true);
+  nextRound();
+}
 function nextRound(){
   if(!running) return;
   current = pick(MUTS);
-  clear();
-  drawBackground();
-  drawCockatiel(current);
   makeChoices(current);
   hintEl.textContent = "Look at the cheeks + pattern + color!";
 }
 
-/* init canvas */
-drawBackground();
+/* ---- Other buttons ---- */
+document.getElementById("collectionBtn").addEventListener("click", ()=>{ sfx.click(); openCollection(); });
+document.getElementById("menuBtn").addEventListener("click", ()=>{ sfx.click(); openMenu(); });
+document.getElementById("nextBtn").addEventListener("click", ()=>{ sfx.click(); nextRound(); });
+
+/* ---- Init ---- */
 setToast("Open Menu → Start", true);
 openMenu();
+loop();
 </script>
 </body>
 </html>
